@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SlatePing — Global IT Services, Managed Operations, Staffing and Consulting</title>
+  <meta name="description" content="SlatePing is a global technology and operations partner delivering service desk support, enterprise networking, unified communications, NOC monitoring, business process operations, dedicated staffing, and strategic consulting." />
+
+  <!-- Custom SlatePing SVG Tab Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231E1B4B'/%3E%3Crect x='6' y='8' width='14' height='4' rx='1.5' fill='%23FFFFFF'/%3E%3Crect x='6' y='14.5' width='18' height='4' rx='1.5' fill='%23FFFFFF' fill-opacity='0.9'/%3E%3Crect x='6' y='21' width='11' height='4' rx='1.5' fill='%23FFFFFF' fill-opacity='0.75'/%3E%3Ccircle cx='24.5' cy='9.5' r='3.2' fill='%230D9488'/%3E%3C/svg%3E" />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            porcelain: '#FAFAF9',
+            indigoBrand: {
+              50: '#EEF2FF',
+              100: '#E0E7FF',
+              200: '#C7D2FE',
+              500: '#6366F1',
+              600: '#4F46E5',
+              700: '#4338CA',
+              800: '#3730A3',
+              900: '#312E81',
+              950: '#1E1B4B',
+            },
+            tealBrand: {
+              50: '#F0FDFA',
+              100: '#CCFBF1',
+              200: '#99F6E4',
+              500: '#14B8A6',
+              600: '#0D9488',
+              700: '#0F766E',
+              800: '#115E59',
+            },
+            amberAccent: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              600: '#D97706',
+              700: '#B45309',
+            }
+          },
+          boxShadow: {
+            'soft': '0 4px 18px -2px rgba(30, 27, 75, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03)',
+            'card-hover': '0 14px 28px -8px rgba(30, 27, 75, 0.10), 0 4px 12px -2px rgba(13, 148, 136, 0.07)',
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Exact 64px (4rem) sticky header offset so sections align cleanly at the top edge */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 64px;
+    }
+
+    /* Subtle architectural dot matrix on pure white */
+    .bg-dot-matrix {
+      background-image: radial-gradient(rgba(67, 56, 202, 0.11) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Ping ripple animation for availability indicator */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.85); opacity: 0.75; }
+      80%, 100% { transform: scale(2.15); opacity: 0; }
+    }
+    .animate-ping-slow {
+      animation: pulse-ring 2.4s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    }
+
+    /* Smooth panel fade transition */
+    @keyframes panelFade {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-panel {
+      animation: panelFade 0.22s ease-out forwards;
+    }
+
+    /* Shared brand wordmark style matching header logo */
+    .sp-mark {
+      font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      text-transform: none !important;
+      display: inline;
+    }
+    .sp-slate {
+      color: #1E1B4B;
+    }
+    .sp-ping {
+      color: #0D9488;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-indigoBrand-950 selection:text-white">
+
+  <!-- ==================== STICKY TOP NAVIGATION ==================== -->
+  <header id="main-navbar" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Custom SVG SlatePing Brand Logo -->
+        <a href="#" class="flex items-center gap-2.5 group focus:outline-none">
+          <div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-indigoBrand-950 text-white shadow-sm group-hover:bg-indigoBrand-800 transition-colors duration-200">
+            <svg class="w-5 h-5" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="6" width="14" height="4" rx="1.5" fill="currentColor" />
+              <rect x="4" y="12.5" width="18" height="4" rx="1.5" fill="currentColor" fill-opacity="0.88" />
+              <rect x="4" y="19" width="11" height="4" rx="1.5" fill="currentColor" fill-opacity="0.7" />
+              <circle cx="21.5" cy="7.5" r="3" fill="#0D9488" />
+              <circle cx="21.5" cy="7.5" r="5.5" stroke="#0D9488" stroke-width="1.3" stroke-opacity="0.7" />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="sp-mark text-xl leading-none">
+              <span class="sp-slate">Slate</span><span class="sp-ping">Ping</span>
+            </span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-slate-500 mt-1">
+              IT • Operations • Staffing • Advisory
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+          <a href="#explorer" data-nav="explorer" class="nav-link hover:text-indigoBrand-700 transition-colors">Services</a>
+          <a href="#impact" data-nav="impact" class="nav-link hover:text-indigoBrand-700 transition-colors">Why <span class="sp-mark text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span></a>
+          <a href="#flexibility" data-nav="flexibility" class="nav-link hover:text-indigoBrand-700 transition-colors">Flexible Start</a>
+          <a href="#governance" data-nav="governance" class="nav-link hover:text-indigoBrand-700 transition-colors uppercase text-xs font-mono font-semibold tracking-wider text-indigoBrand-950">Trust and Governance</a>
+          <a href="#contact" data-nav="contact" class="nav-link hover:text-indigoBrand-700 transition-colors">Connect</a>
+        </nav>
+
+        <!-- Desktop CTA and Mobile Menu Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="mailto:partnership@slateping.com?subject=Partnership%20Inquiry%20-%20SlatePing" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigoBrand-950 hover:bg-indigoBrand-800 text-white text-xs sm:text-sm font-semibold shadow-sm transition-all duration-200">
+            <i data-lucide="mail" class="w-4 h-4 text-tealBrand-200"></i>
+            <span>partnership@slateping.com</span>
+          </a>
+
+          <!-- Mobile Hamburger Button -->
+          <button id="mobile-menu-btn" type="button" aria-label="Toggle Menu" class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-porcelain transition-colors">
+            <i data-lucide="menu" id="menu-icon-open" class="w-5 h-5"></i>
+            <i data-lucide="x" id="menu-icon-close" class="w-5 h-5 hidden"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-2 shadow-lg">
+      <a href="#explorer" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-indigoBrand-50 hover:text-indigoBrand-700">Service Explorer</a>
+      <a href="#impact" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-indigoBrand-50 hover:text-indigoBrand-700">Why <span class="sp-mark text-base"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span></a>
+      <a href="#flexibility" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-indigoBrand-50 hover:text-indigoBrand-700">Flexible Partnership Start</a>
+      <a href="#governance" class="mobile-link block px-3 py-2.5 rounded-lg text-sm font-mono font-semibold uppercase tracking-wider text-indigoBrand-950 hover:bg-indigoBrand-50">Trust and Governance</a>
+      <a href="#contact" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-indigoBrand-50 hover:text-indigoBrand-700">Direct Email</a>
+      <div class="pt-2">
+        <a href="mailto:partnership@slateping.com?subject=Partnership%20Inquiry%20-%20SlatePing" class="mobile-link flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-indigoBrand-700 text-white font-semibold text-sm">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          <span>Email partnership@slateping.com</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== COMPACT VIEWPORT-FIT HERO SECTION ==================== -->
+  <section class="relative overflow-hidden bg-white bg-dot-matrix border-b border-slate-200/80 py-8 sm:py-11">
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-indigoBrand-50/70 via-tealBrand-50/25 to-transparent"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-9 items-center">
+        
+        <!-- Left 7 Columns: Global Value Proposition -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-full bg-white text-indigoBrand-950 border border-indigoBrand-200 shadow-soft">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-tealBrand-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-tealBrand-600"></span>
+            </span>
+            <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-indigoBrand-950">
+              Global Technology and Operations Partner
+            </span>
+            <span class="text-slate-300">•</span>
+            <span class="font-mono text-[11px] font-semibold text-tealBrand-700">
+              Start With 1 Role, 1 Service or Any Budget
+            </span>
+          </div>
+
+          <h1 class="font-display font-extrabold text-2xl sm:text-4xl lg:text-[2.5rem] text-slate-900 tracking-tight leading-[1.16]">
+            <span class="sp-mark text-2xl sm:text-4xl lg:text-[2.5rem]"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Delivers <span class="text-indigoBrand-700">Global IT, Cloud and Operations</span>, <span class="text-tealBrand-600">Dedicated Staffing</span> and Consulting.
+          </h1>
+
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+            Supported by certified experts and industry specialists with 12+ years of enterprise delivery experience. Built for every organization—from very small businesses and local teams to large global enterprises—start with as low as a single employee workload, a single service, or an entry-level budget and scale smoothly.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+            <a href="mailto:partnership@slateping.com?subject=Partnership%20Inquiry%20-%20SlatePing" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-indigoBrand-700 hover:bg-indigoBrand-800 text-white font-semibold text-sm shadow-md shadow-indigoBrand-700/20 transition-all">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              <span>Connect via partnership@slateping.com</span>
+            </a>
+            <a href="#explorer" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-porcelain text-indigoBrand-950 border border-slate-300 hover:border-indigoBrand-300 font-semibold text-sm shadow-sm transition-all">
+              <i data-lucide="layers" class="w-4 h-4 text-tealBrand-600"></i>
+              <span>Explore All 7 Suites</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right 5 Columns: Compact Snapshot Card -->
+        <div class="lg:col-span-5">
+          <div class="bg-porcelain border border-indigoBrand-200/80 rounded-2xl p-5 shadow-soft space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-200/80 pb-2.5">
+              <span class="text-xs sm:text-sm font-bold text-slate-900">
+                Why Teams Choose <span class="sp-mark text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span>
+              </span>
+              <span class="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-tealBrand-50 text-tealBrand-700 border border-tealBrand-200">Budget Friendly</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div class="bg-white border border-slate-200/80 rounded-xl p-3">
+                <div class="font-display font-extrabold text-lg text-indigoBrand-950">From 1 Role</div>
+                <div class="text-[11px] text-slate-600 mt-0.5">Single specialist or workload start</div>
+              </div>
+              <div class="bg-white border border-slate-200/80 rounded-xl p-3">
+                <div class="font-display font-extrabold text-lg text-tealBrand-700">12+ Yrs</div>
+                <div class="text-[11px] text-slate-600 mt-0.5">Enterprise specialist pedigree</div>
+              </div>
+              <div class="bg-white border border-slate-200/80 rounded-xl p-3">
+                <div class="font-display font-extrabold text-lg text-indigoBrand-950">7 Suites</div>
+                <div class="text-[11px] text-slate-600 mt-0.5">IT, Voice, NOC, Ops and Staffing</div>
+              </div>
+              <div class="bg-white border border-slate-200/80 rounded-xl p-3">
+                <div class="font-display font-extrabold text-lg text-tealBrand-700">High Availability</div>
+                <div class="text-[11px] text-slate-600 mt-0.5">Minimal downtime operating model</div>
+              </div>
+            </div>
+
+            <div class="bg-white border border-tealBrand-200/80 rounded-xl px-3.5 py-2.5 flex items-center gap-2.5">
+              <i data-lucide="sparkles" class="w-4 h-4 text-tealBrand-600 shrink-0"></i>
+              <p class="text-[11px] sm:text-xs text-slate-700 leading-snug">
+                <strong>Built for Every Scale:</strong> From very small businesses to large enterprises—validate quality on a single task or lean budget before scaling.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INTERACTIVE TABBED SERVICE EXPLORER ==================== -->
+  <section id="explorer" class="scroll-mt-16 py-10 sm:py-12 bg-porcelain border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header and View Mode Switcher -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-5">
+        <div>
+          <span class="inline-block font-mono text-[11px] font-semibold uppercase tracking-widest text-indigoBrand-700 bg-indigoBrand-50 border border-indigoBrand-200 px-3 py-1 rounded-full mb-2">
+            Global Service Portfolio
+          </span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">
+            Seven Modular <span class="sp-mark text-2xl sm:text-3xl"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Suites Built to Scale.
+          </h2>
+        </div>
+
+        <!-- Toggle between Focused Tab View and All-7 Grid View -->
+        <div class="inline-flex items-center p-1 rounded-xl bg-white border border-slate-200 shadow-sm self-start md:self-auto">
+          <button type="button" id="mode-spotlight-btn" onclick="setExplorerMode('spotlight')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-indigoBrand-950 text-white">
+            Focused View
+          </button>
+          <button type="button" id="mode-grid-btn" onclick="setExplorerMode('grid')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-600 hover:text-indigoBrand-700">
+            All 7 Suites Grid
+          </button>
+        </div>
+      </div>
+
+      <!-- Pillar Navigation Tabs -->
+      <div id="pillar-tabs-bar" class="flex flex-wrap items-center gap-2 mb-5" role="tablist" aria-label="SlatePing Service Suites">
+        <button type="button" data-suite="desk" class="suite-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-indigoBrand-700 text-white shadow-sm">
+          <span class="sp-mark text-xs sm:text-sm"><span class="text-white">Slate</span><span class="text-tealBrand-200">Ping</span></span> Desk
+        </button>
+        <button type="button" data-suite="net" class="suite-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-indigoBrand-400">
+          <span class="sp-mark text-xs sm:text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Net
+        </button>
+        <button type="button" data-suite="collab" class="suite-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-indigoBrand-400">
+          <span class="sp-mark text-xs sm:text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Collab
+        </button>
+        <button type="button" data-suite="noc" class="suite-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-indigoBrand-400">
+          <span class="sp-mark text-xs sm:text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> NOC
+        </button>
+        <button type="button" data-suite="ops" class="suite-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-indigoBrand-400">
+          <span class="sp-mark text-xs sm:text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Ops
+        </button>
+        <button type="button" data-suite="staffing" class="suite-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-indigoBrand-400">
+          <span class="sp-mark text-xs sm:text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Staffing
+        </button>
+        <button type="button" data-suite="consulting" class="suite-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white text-slate-700 border border-slate-200 hover:border-indigoBrand-400">
+          <span class="sp-mark text-xs sm:text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Consulting
+        </button>
+      </div>
+
+      <!-- VIEW 1: FOCUSED SPOTLIGHT PANEL -->
+      <div id="spotlight-view" class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-7 shadow-soft animate-panel">
+        <!-- Dynamically populated by JS -->
+      </div>
+
+      <!-- VIEW 2: ALL 7 SUITES COMPACT COMPARISON GRID -->
+      <div id="grid-view" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 animate-panel">
+        <!-- Dynamically populated by JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== WHY TEAMS TRUST SLATEPING ==================== -->
+  <section id="impact" class="scroll-mt-16 py-10 sm:py-12 bg-white border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-3 mb-6">
+        <div class="max-w-2xl">
+          <span class="inline-block font-mono text-[11px] font-semibold uppercase tracking-widest text-indigoBrand-700 bg-indigoBrand-50 border border-indigoBrand-200 px-3 py-1 rounded-full mb-2">
+            Service Quality and Business Value
+          </span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight">
+            Why Teams Choose <span class="sp-mark text-2xl sm:text-3xl"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> for Quality and Scale.
+          </h2>
+        </div>
+        <p class="text-slate-600 text-xs sm:text-sm max-w-md leading-relaxed">
+          Disciplined execution, cost-efficient capacity, and multi-service breadth supporting very small businesses through large global enterprises.
+        </p>
+      </div>
+
+      <!-- 4 Compact Value Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="bg-porcelain border border-slate-200/90 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-indigoBrand-50 border border-indigoBrand-200 text-indigoBrand-700 flex items-center justify-center shrink-0">
+              <i data-lucide="badge-check" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-display font-bold text-base text-slate-900">Consistent Quality</h3>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Standardized playbooks, senior technical review, and structured service delivery across every engagement size.
+          </p>
+        </div>
+
+        <div class="bg-porcelain border border-slate-200/90 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-tealBrand-50 border border-tealBrand-200 text-tealBrand-700 flex items-center justify-center shrink-0">
+              <i data-lucide="wallet" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-display font-bold text-base text-slate-900">Budget-Friendly Model</h3>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Start lean with one specialist, one service, or an entry budget and expand cleanly as your business grows.
+          </p>
+        </div>
+
+        <div class="bg-porcelain border border-slate-200/90 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-indigoBrand-50 border border-indigoBrand-200 text-indigoBrand-700 flex items-center justify-center shrink-0">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-display font-bold text-base text-slate-900">Global Multi-Service</h3>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Unified helpdesk, network, voice and collaboration, NOC, BPO operations, staffing, and consulting under one roof.
+          </p>
+        </div>
+
+        <div class="bg-porcelain border border-slate-200/90 rounded-2xl p-5 space-y-2">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-tealBrand-50 border border-tealBrand-200 text-tealBrand-700 flex items-center justify-center shrink-0">
+              <i data-lucide="handshake" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-display font-bold text-base text-slate-900">Trusted Execution</h3>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Transparent communication, clear accountability, and dependable processes built for lasting business partnerships.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FLEXIBLE START AND TRUST AND GOVERNANCE ==================== -->
+  <section id="flexibility" class="scroll-mt-16 py-10 sm:py-12 bg-porcelain border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <!-- Part A: Flexible Engagement for Any Business Size -->
+      <div>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 mb-5">
+          <div>
+            <span class="inline-block font-mono text-[11px] font-semibold uppercase tracking-widest text-tealBrand-700 bg-tealBrand-50 border border-tealBrand-200 px-3 py-1 rounded-full mb-1.5">
+              Low-Barrier Partnership Options
+            </span>
+            <h2 class="font-display font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight">
+              Start With One Employee Workload, One Service, or an Entry Budget.
+            </h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 max-w-md">
+            Practical entry points for very small businesses through large enterprises—scale only when ready.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-soft flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-8 h-8 rounded-lg bg-tealBrand-50 border border-tealBrand-200 text-tealBrand-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="user-check" class="w-4 h-4"></i>
+                </div>
+                <h3 class="font-display font-bold text-base text-slate-900">Single Employee Workload</h3>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Engage a single dedicated specialist or analyst aligned to your daily tools and schedule before adding more capacity.
+              </p>
+            </div>
+            <a href="mailto:partnership@slateping.com?subject=Starting%20With%201%20Specialist%20-%20SlatePing" class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigoBrand-700 hover:text-tealBrand-600">
+              <span>Start With 1 Specialist</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <div class="bg-white border-2 border-indigoBrand-200 rounded-2xl p-5 shadow-soft flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-8 h-8 rounded-lg bg-indigoBrand-50 border border-indigoBrand-200 text-indigoBrand-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="puzzle" class="w-4 h-4"></i>
+                </div>
+                <h3 class="font-display font-bold text-base text-slate-900">Single Service Focus</h3>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Select just one suite or workflow—such as service desk triage, NOC watch, or back-end operations—with full attention.
+              </p>
+            </div>
+            <a href="mailto:partnership@slateping.com?subject=Single%20Service%20Inquiry%20-%20SlatePing" class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigoBrand-700 hover:text-tealBrand-600">
+              <span>Scope 1 Service</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <div class="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-soft flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-8 h-8 rounded-lg bg-amberAccent-50 border border-amberAccent-100 text-amberAccent-700 flex items-center justify-center shrink-0">
+                  <i data-lucide="sliders" class="w-4 h-4"></i>
+                </div>
+                <h3 class="font-display font-bold text-base text-slate-900">Entry-Budget Friendly</h3>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Tailored scopes and flexible retainers designed to respect very small business, departmental, and enterprise budgets alike.
+              </p>
+            </div>
+            <a href="mailto:partnership@slateping.com?subject=Flexible%20Budget%20Inquiry%20-%20SlatePing" class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigoBrand-700 hover:text-tealBrand-600">
+              <span>Discuss Budget Fit</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part B: Trust and Governance Section (Exact Scroll Target) -->
+      <div id="governance" class="scroll-mt-16 bg-white border border-indigoBrand-200/80 rounded-2xl p-5 sm:p-7 shadow-soft">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          
+          <div class="lg:col-span-5 space-y-2.5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-porcelain border border-indigoBrand-200 text-indigoBrand-950 font-mono text-[11px] font-semibold uppercase tracking-wider">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-tealBrand-600"></i>
+              <span>Trust and Governance</span>
+            </div>
+            <h2 class="font-display font-extrabold text-xl sm:text-2xl text-slate-900 tracking-tight">
+              High Specialist Availability, Minimal Downtime and Client-Aligned Security.
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Our delivery model is structured to support high availability of skilled engineers and minimal downtime while strictly following your security requirements and digital contracting standards.
+            </p>
+          </div>
+
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="bg-porcelain border border-slate-200/90 rounded-xl p-4 space-y-1.5">
+              <div class="flex items-center gap-2 font-display font-bold text-slate-900 text-xs sm:text-sm">
+                <i data-lucide="activity" class="w-4 h-4 text-tealBrand-600"></i>
+                <span>Minimal Downtime Structure</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Documented runbooks, backup coverage, and disciplined handoffs support continuity and high engineer availability.
+              </p>
+            </div>
+
+            <div class="bg-porcelain border border-slate-200/90 rounded-xl p-4 space-y-1.5">
+              <div class="flex items-center gap-2 font-display font-bold text-slate-900 text-xs sm:text-sm">
+                <i data-lucide="award" class="w-4 h-4 text-indigoBrand-700"></i>
+                <span>Certified Industry Specialists</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Certified experts and practitioners with 12+ years of enterprise experience across technical and operational domains.
+              </p>
+            </div>
+
+            <div class="bg-porcelain border border-slate-200/90 rounded-xl p-4 space-y-1.5">
+              <div class="flex items-center gap-2 font-display font-bold text-slate-900 text-xs sm:text-sm">
+                <i data-lucide="lock" class="w-4 h-4 text-tealBrand-600"></i>
+                <span>Client-Aligned Security</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Adheres to each client's approved access controls, VDI/VPN standards, MFA, and least-privilege policies.
+              </p>
+            </div>
+
+            <div class="bg-porcelain border border-slate-200/90 rounded-xl p-4 space-y-1.5">
+              <div class="flex items-center gap-2 font-display font-bold text-slate-900 text-xs sm:text-sm">
+                <i data-lucide="file-signature" class="w-4 h-4 text-indigoBrand-700"></i>
+                <span>Trusted Digital Signature Partners</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Mutual NDAs and service agreements are executed seamlessly through trusted digital signature partners.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SERVICE-FOCUSED DIRECT EMAIL SECTION ==================== -->
+  <section id="contact" class="scroll-mt-16 py-10 sm:py-12 bg-white border-b border-slate-200/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-porcelain border-2 border-indigoBrand-200 rounded-2xl p-6 sm:p-8 shadow-card-hover text-center space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tealBrand-50 border border-tealBrand-200 text-tealBrand-800 font-mono text-[11px] font-semibold">
+          <span class="w-2 h-2 rounded-full bg-tealBrand-600"></span>
+          <span>DIRECT PARTNERSHIP CHANNEL</span>
+        </div>
+
+        <h2 class="font-display font-extrabold text-xl sm:text-3xl text-slate-900 tracking-tight">
+          Partner With <span class="sp-mark text-xl sm:text-3xl"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Directly by Email.
+        </h2>
+
+        <p class="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+          Reach out to our team to explore how <span class="sp-mark text-xs sm:text-sm"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> can support your organization—whether starting with a single specialist, a focused service suite, or a strategic partnership.
+        </p>
+
+        <!-- Primary Email Address Display -->
+        <div class="py-1">
+          <a href="mailto:partnership@slateping.com?subject=Partnership%20Inquiry%20-%20SlatePing" class="font-display font-extrabold text-xl sm:text-3xl text-indigoBrand-950 hover:text-indigoBrand-700 transition-colors break-all">
+            partnership@slateping.com
+          </a>
+        </div>
+
+        <!-- Direct Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="mailto:partnership@slateping.com?subject=Partnership%20Inquiry%20-%20SlatePing"
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigoBrand-700 hover:bg-indigoBrand-800 text-white font-semibold text-sm shadow-md shadow-indigoBrand-700/20 transition-all">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Send Email</span>
+          </a>
+
+          <button type="button" id="copy-email-btn" onclick="copySlatePingEmail()"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-indigoBrand-50 text-indigoBrand-950 border border-slate-300 hover:border-indigoBrand-300 font-semibold text-xs sm:text-sm transition-all">
+            <i data-lucide="copy" id="copy-icon" class="w-4 h-4 text-tealBrand-600"></i>
+            <i data-lucide="check" id="copied-icon" class="w-4 h-4 text-tealBrand-600 hidden"></i>
+            <span id="copy-btn-label">Copy Email Address</span>
+          </button>
+        </div>
+
+        <!-- Instant Copied Confirmation Badge -->
+        <div id="copy-confirmation" class="hidden items-center justify-center gap-2 px-4 py-1.5 rounded-xl bg-tealBrand-50 border border-tealBrand-200 text-tealBrand-800 text-xs font-semibold mx-auto w-fit">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-tealBrand-600"></i>
+          <span>Copied partnership@slateping.com to clipboard!</span>
+        </div>
+
+        <!-- Subtle Trust Footer Strip inside Card -->
+        <div class="pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-xs text-slate-600">
+          <span class="inline-flex items-center gap-1.5">
+            <i data-lucide="file-signature" class="w-3.5 h-3.5 text-tealBrand-600"></i>
+            <span>NDAs and agreements signed via trusted digital signature partners</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <i data-lucide="user-plus" class="w-3.5 h-3.5 text-indigoBrand-700"></i>
+            <span>Flexible entry from 1 specialist, 1 service, or entry budget</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CRISP WHITE FOOTER ==================== -->
+  <footer class="bg-white text-slate-600 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 pb-7 border-b border-slate-200/80">
+        
+        <!-- Brand Summary -->
+        <div class="lg:col-span-5 space-y-2.5">
+          <a href="#" class="flex items-center gap-2.5">
+            <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigoBrand-950 text-white">
+              <svg class="w-4 h-4" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="6" width="14" height="4" rx="1.5" fill="currentColor" />
+                <rect x="4" y="12.5" width="18" height="4" rx="1.5" fill="currentColor" fill-opacity="0.88" />
+                <rect x="4" y="19" width="11" height="4" rx="1.5" fill="currentColor" fill-opacity="0.7" />
+                <circle cx="21.5" cy="7.5" r="3" fill="#0D9488" />
+              </svg>
+            </div>
+            <span class="sp-mark text-lg leading-none">
+              <span class="sp-slate">Slate</span><span class="sp-ping">Ping</span>
+            </span>
+          </a>
+          <p class="text-xs text-slate-600 max-w-md leading-relaxed">
+            Global IT services, managed operations, unified communications, dedicated staffing, and consulting delivered by certified specialists with 12+ years of enterprise experience.
+          </p>
+        </div>
+
+        <!-- 7 Service Suites Links -->
+        <div class="lg:col-span-4 space-y-2">
+          <h4 class="font-mono text-[11px] font-semibold uppercase tracking-wider text-indigoBrand-950">Service Suites</h4>
+          <div class="grid grid-cols-2 gap-1.5 text-xs">
+            <a href="#explorer" onclick="selectSuite('desk')" class="hover:text-indigoBrand-700 transition-colors"><span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Desk</a>
+            <a href="#explorer" onclick="selectSuite('ops')" class="hover:text-indigoBrand-700 transition-colors"><span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Ops</a>
+            <a href="#explorer" onclick="selectSuite('net')" class="hover:text-indigoBrand-700 transition-colors"><span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Net</a>
+            <a href="#explorer" onclick="selectSuite('staffing')" class="hover:text-indigoBrand-700 transition-colors"><span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Staffing</a>
+            <a href="#explorer" onclick="selectSuite('collab')" class="hover:text-indigoBrand-700 transition-colors"><span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Collab</a>
+            <a href="#explorer" onclick="selectSuite('consulting')" class="hover:text-indigoBrand-700 transition-colors"><span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> Consulting</a>
+            <a href="#explorer" onclick="selectSuite('noc')" class="hover:text-indigoBrand-700 transition-colors"><span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> NOC</a>
+          </div>
+        </div>
+
+        <!-- Direct Contact -->
+        <div class="lg:col-span-3 space-y-2">
+          <h4 class="font-mono text-[11px] font-semibold uppercase tracking-wider text-indigoBrand-950">Partnerships</h4>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="mailto:partnership@slateping.com" class="font-semibold text-indigoBrand-700 hover:text-tealBrand-600 transition-colors">partnership@slateping.com</a></li>
+            <li class="text-slate-500">Global Multi-Region Support</li>
+            <li class="text-slate-500">Very Small Businesses to Enterprises</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Auto-Updating Copyright Row -->
+      <div class="pt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <div>
+          &copy; <span id="copyright-year">2026</span> <span class="sp-mark text-xs"><span class="sp-slate">Slate</span><span class="sp-ping">Ping</span></span> (slateping.com). All rights reserved.
+        </div>
+        <div class="flex items-center gap-5">
+          <button type="button" onclick="openLegalModal('privacy')" class="hover:text-indigoBrand-700 transition-colors">Privacy Policy</button>
+          <button type="button" onclick="openLegalModal('security')" class="hover:text-indigoBrand-700 transition-colors">Security and Digital Agreements</button>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== LEGAL AND GOVERNANCE MODAL ==================== -->
+  <div id="legal-modal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 id="legal-modal-title" class="font-display font-bold text-lg text-indigoBrand-950">Privacy Policy</h3>
+        <button type="button" onclick="closeLegalModal()" class="p-1.5 rounded-lg text-slate-500 hover:bg-porcelain">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="legal-modal-body" class="text-sm text-slate-600 leading-relaxed space-y-3"></div>
+      <div class="pt-2 flex justify-end">
+        <button type="button" onclick="closeLegalModal()" class="px-4 py-2 rounded-xl bg-indigoBrand-950 text-white text-xs font-semibold hover:bg-indigoBrand-800 transition-colors">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== INTERACTIVE JAVASCRIPT ==================== -->
+  <script>
+    // Helper to render brand wordmark identically to header logo
+    function brandMark(suffix = '', lightOnDark = false) {
+      const slateCls = lightOnDark ? 'text-white' : 'sp-slate';
+      const pingCls = lightOnDark ? 'text-tealBrand-200' : 'sp-ping';
+      const tail = suffix ? ` <span class="${lightOnDark ? 'text-white' : 'text-slate-900'}">${suffix}</span>` : '';
+      return `<span class="sp-mark"><span class="${slateCls}">Slate</span><span class="${pingCls}">Ping</span></span>${tail}`;
+    }
+
+    // 1. Auto-update copyright year dynamically
+    const yearEl = document.getElementById('copyright-year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+
+    // 2. Structured Data for all 7 SlatePing Service Suites
+    const suitesData = {
+      desk: {
+        id: 'desk',
+        name: 'SlatePing',
+        suffix: 'Desk',
+        fullTitle: 'SlatePing Desk',
+        badge: 'L1 to L3 Support',
+        tagline: 'Service Desk and Technical Support',
+        icon: 'headset',
+        accent: 'indigo',
+        summary: 'Responsive Tier 1 to Tier 3 technical support operations designed to resolve user issues swiftly with clean documentation and structured escalation.',
+        deliverables: [
+          'L1, L2 and L3 incident triage, troubleshooting and structured escalation',
+          'Administration and workflow support across ServiceNow, Jira and Zendesk',
+          'Onboarding, offboarding, access support and Microsoft 365 assistance',
+          'Start with a single support workload or scale into broader coverage'
+        ],
+        idealFor: 'Very small businesses, growing teams, and global enterprises needing dependable daily support without heavy overhead.',
+        tags: ['L1–L3 Support', 'ServiceNow and Jira', 'M365 and Access', 'From 1 Role'],
+        emailSubject: 'Inquiry: SlatePing Desk (Service Desk and Technical Support)'
+      },
+      net: {
+        id: 'net',
+        name: 'SlatePing',
+        suffix: 'Net',
+        fullTitle: 'SlatePing Net',
+        badge: 'Network Engineering',
+        tagline: 'Enterprise Routing, Switching and Perimeter Security',
+        icon: 'network',
+        accent: 'teal',
+        summary: 'Resilient campus, branch, and edge network management engineered for stable connectivity, clean segmentation, and disciplined change control.',
+        deliverables: [
+          'Enterprise routing, switching, BGP, OSPF and VLAN architecture management',
+          'Multi-site SD-WAN deployment, policy tuning and automated failover fabrics',
+          'Next-generation firewall governance, IPSec VPNs and LAN/WAN optimization',
+          'Structured maintenance windows designed for minimal operational downtime'
+        ],
+        idealFor: 'Organizations of any size expanding multi-site connectivity or seeking experienced engineers to manage network environments.',
+        tags: ['Routing and Switching', 'SD-WAN', 'Firewalls and VPN', 'Minimal Downtime'],
+        emailSubject: 'Inquiry: SlatePing Net (Enterprise Networking)'
+      },
+      collab: {
+        id: 'collab',
+        name: 'SlatePing',
+        suffix: 'Collab',
+        fullTitle: 'SlatePing Collab',
+        badge: 'CCIE-Certified Experts',
+        tagline: 'Unified Communications, VoIP and Collaboration',
+        icon: 'phone-call',
+        accent: 'indigo',
+        summary: 'Voice, video, and collaboration services delivered by CCIE-certified experts and certified collaboration specialists with 12+ years of enterprise experience.',
+        deliverables: [
+          'Cisco CUCM, Unity Connection, Webex Calling and collaboration administration',
+          'Cloud voice migrations across Zoom Phone and Microsoft Teams Direct Routing',
+          'SIP trunking, dial-plan engineering and session border controller tuning',
+          'Call-quality diagnostics, QoS optimization and voice gateway lifecycle support'
+        ],
+        idealFor: 'Businesses modernizing voice infrastructure, stabilizing SIP trunks, or maintaining mission-critical collaboration platforms.',
+        tags: ['VoIP and Collaboration', 'CCIE-Certified Experts', '12+ Yrs Experience', 'SIP and Cloud Voice'],
+        emailSubject: 'Inquiry: SlatePing Collab (Unified Communications and VoIP)'
+      },
+      noc: {
+        id: 'noc',
+        name: 'SlatePing',
+        suffix: 'NOC',
+        fullTitle: 'SlatePing NOC',
+        badge: 'Continuous Watch',
+        tagline: 'Network Operations and Cloud Monitoring',
+        icon: 'server-cog',
+        accent: 'teal',
+        summary: 'Proactive infrastructure telemetry, alert triage, and server operations structured to catch issues early and maintain high operational continuity.',
+        deliverables: [
+          'Continuous infrastructure and service health monitoring with runbook triage',
+          'AWS, Azure and Linux server administration, patching and backup verification',
+          'Certificate lifecycle checks, container health and log correlation',
+          'Clear incident coordination and root-cause documentation'
+        ],
+        idealFor: 'Small businesses and large IT leaders wanting dependable monitoring and cloud support without straining internal staff.',
+        tags: ['NOC Monitoring', 'AWS and Linux', 'Runbook Triage', 'High Availability'],
+        emailSubject: 'Inquiry: SlatePing NOC (Network Operations and Cloud Monitoring)'
+      },
+      ops: {
+        id: 'ops',
+        name: 'SlatePing',
+        suffix: 'Ops',
+        fullTitle: 'SlatePing Ops',
+        badge: 'BPO and Back-End Ops',
+        tagline: 'Business Process and Back-End Operations',
+        icon: 'workflow',
+        accent: 'indigo',
+        summary: 'Process-driven operational specialists handling customer support queues, order provisioning, billing audits, and back-end administrative workflows.',
+        deliverables: [
+          'Omnichannel customer support across voice, chat and email queues',
+          'Service order processing, provisioning coordination and billing audits',
+          'Asset record hygiene, vendor follow-ups and structured reporting',
+          'Begin with a single dedicated operator or scale into multi-role pods'
+        ],
+        idealFor: 'Companies from lean local operations to global enterprises looking to streamline recurring workflows with reliable execution.',
+        tags: ['Customer Ops', 'Order Provisioning', 'Billing Audits', 'From 1 Operator'],
+        emailSubject: 'Inquiry: SlatePing Ops (Business Process Operations)'
+      },
+      staffing: {
+        id: 'staffing',
+        name: 'SlatePing',
+        suffix: 'Staffing',
+        fullTitle: 'SlatePing Staffing',
+        badge: 'Hire 1+ Specialist',
+        tagline: 'Dedicated Technical and Operational Talent',
+        icon: 'user-plus',
+        accent: 'teal',
+        summary: 'Add as few as a single vetted specialist—screened by experienced practitioners across support, networking, collaboration, cloud, and operations.',
+        deliverables: [
+          'Technical screening led by senior practitioners and domain leads',
+          'Engineers, support analysts, collaboration specialists and operations talent',
+          'High specialist availability aligned to your team schedule',
+          'Smooth onboarding with structured coordination and support'
+        ],
+        idealFor: 'Very small businesses, mid-sized teams, and enterprises needing fast access to capable specialists starting from a single role.',
+        tags: ['Start With 1 Role', 'Practitioner Vetted', 'Multi-Domain Talent', 'Rapid Onboarding'],
+        emailSubject: 'Inquiry: SlatePing Staffing (Dedicated Talent)'
+      },
+      consulting: {
+        id: 'consulting',
+        name: 'SlatePing',
+        suffix: 'Consulting',
+        fullTitle: 'SlatePing Consulting',
+        badge: 'Certified Specialists',
+        tagline: 'Strategic Advisory and Architecture',
+        icon: 'compass',
+        accent: 'amber',
+        summary: 'Targeted advisory and architecture engagements led by certified experts with 12+ years of enterprise experience—scoped cleanly to your goals and budget.',
+        deliverables: [
+          'Infrastructure, network, collaboration and cloud architecture assessments',
+          'Modernization roadmaps, design blueprints and migration planning',
+          'Vendor rationalization, licensing review and cost-efficiency advisory',
+          'Focused sprints tailored for small business budgets and enterprise programs'
+        ],
+        idealFor: 'Leaders planning upgrades, cloud transitions, or independent technical reviews before committing major resources.',
+        tags: ['Architecture Audits', 'Certified Specialists', '12+ Yrs Experience', 'Budget-Aligned'],
+        emailSubject: 'Inquiry: SlatePing Consulting (Strategic Advisory and Architecture)'
+      }
+    };
+
+    let activeSuiteKey = 'desk';
+    let explorerMode = 'spotlight';
+
+    // Render Focused Spotlight Panel
+    function renderSpotlight(key) {
+      const s = suitesData[key];
+      const spotlightEl = document.getElementById('spotlight-view');
+      const badgeColors = s.accent === 'teal'
+        ? 'bg-tealBrand-50 text-tealBrand-700 border-tealBrand-200'
+        : s.accent === 'amber'
+          ? 'bg-amberAccent-50 text-amberAccent-700 border-amberAccent-100'
+          : 'bg-indigoBrand-50 text-indigoBrand-700 border-indigoBrand-200';
+
+      const iconBg = s.accent === 'teal'
+        ? 'bg-tealBrand-600 text-white'
+        : 'bg-indigoBrand-950 text-white';
+
+      spotlightEl.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 space-y-3.5">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl ${iconBg} flex items-center justify-center shrink-0 shadow-sm">
+                <i data-lucide="${s.icon}" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-xl sm:text-2xl">${brandMark(s.suffix)}</h3>
+                  <span class="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${badgeColors}">${s.badge}</span>
+                </div>
+                <p class="text-xs sm:text-sm font-medium text-indigoBrand-700 mt-0.5">${s.tagline}</p>
+              </div>
+            </div>
+
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+              ${s.summary}
+            </p>
+
+            <div class="space-y-1.5 pt-1">
+              <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">Key Capabilities</div>
+              <ul class="space-y-1.5 text-xs sm:text-sm text-slate-700">
+                ${s.deliverables.map(item => `
+                  <li class="flex items-start gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-tealBrand-600 shrink-0 mt-0.5"></i>
+                    <span>${item}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-porcelain border border-slate-200/90 rounded-2xl p-5 space-y-4">
+            <div>
+              <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-indigoBrand-700 mb-1">Ideal Fit</div>
+              <p class="text-xs text-slate-600 leading-relaxed">${s.idealFor}</p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5">
+              ${s.tags.map(t => `<span class="font-mono text-[11px] px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-700">${t}</span>`).join('')}
+            </div>
+
+            <div class="pt-3 border-t border-slate-200/80 space-y-2.5">
+              <div class="text-[11px] text-slate-500">
+                Start with a single specialist, a focused service, or an entry-level scope.
+              </div>
+              <a href="mailto:partnership@slateping.com?subject=${encodeURIComponent(s.emailSubject)}"
+                 class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigoBrand-700 hover:bg-indigoBrand-800 text-white font-semibold text-xs sm:text-sm shadow-sm transition-colors">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+                <span>Inquire About ${s.fullTitle}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // Render All 7 Suites Grid View
+    function renderAllGrid() {
+      const gridEl = document.getElementById('grid-view');
+      gridEl.innerHTML = Object.values(suitesData).map(s => `
+        <article class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-soft hover:shadow-card-hover transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2.5 mb-2.5">
+              <div class="w-9 h-9 rounded-xl bg-indigoBrand-50 border border-indigoBrand-100 text-indigoBrand-700 flex items-center justify-center shrink-0">
+                <i data-lucide="${s.icon}" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="text-base">${brandMark(s.suffix)}</h3>
+                <p class="text-[11px] font-medium text-tealBrand-700">${s.badge}</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">${s.summary}</p>
+            <ul class="space-y-1.5 text-xs text-slate-700 mb-4">
+              ${s.deliverables.slice(0, 3).map(d => `
+                <li class="flex items-start gap-1.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-tealBrand-600 shrink-0 mt-0.5"></i>
+                  <span>${d}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <button type="button" onclick="selectSuite('${s.id}'); setExplorerMode('spotlight');" class="text-xs font-semibold text-slate-600 hover:text-indigoBrand-700">
+              Details
+            </button>
+            <a href="mailto:partnership@slateping.com?subject=${encodeURIComponent(s.emailSubject)}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-indigoBrand-700 hover:text-tealBrand-600">
+              <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+              <span>Email Us</span>
+            </a>
+          </div>
+        </article>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function selectSuite(key) {
+      activeSuiteKey = key;
+      document.querySelectorAll('.suite-tab').forEach(btn => {
+        const isMatch = btn.getAttribute('data-suite') === key;
+        const s = suitesData[btn.getAttribute('data-suite')];
+        if (isMatch) {
+          btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+          btn.classList.add('bg-indigoBrand-700', 'text-white', 'shadow-sm');
+          btn.innerHTML = `${brandMark(s.suffix, true)}`;
+        } else {
+          btn.classList.remove('bg-indigoBrand-700', 'text-white', 'shadow-sm');
+          btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+          btn.innerHTML = `${brandMark(s.suffix, false)}`;
+        }
+      });
+      renderSpotlight(key);
+    }
+
+    function setExplorerMode(mode) {
+      explorerMode = mode;
+      const spotlightBtn = document.getElementById('mode-spotlight-btn');
+      const gridBtn = document.getElementById('mode-grid-btn');
+      const tabsBar = document.getElementById('pillar-tabs-bar');
+      const spotlightView = document.getElementById('spotlight-view');
+      const gridView = document.getElementById('grid-view');
+
+      if (mode === 'spotlight') {
+        spotlightBtn.classList.add('bg-indigoBrand-950', 'text-white');
+        spotlightBtn.classList.remove('text-slate-600');
+        gridBtn.classList.remove('bg-indigoBrand-950', 'text-white');
+        gridBtn.classList.add('text-slate-600');
+
+        tabsBar.classList.remove('hidden');
+        spotlightView.classList.remove('hidden');
+        gridView.classList.add('hidden');
+        gridView.classList.remove('grid');
+      } else {
+        gridBtn.classList.add('bg-indigoBrand-950', 'text-white');
+        gridBtn.classList.remove('text-slate-600');
+        spotlightBtn.classList.remove('bg-indigoBrand-950', 'text-white');
+        spotlightBtn.classList.add('text-slate-600');
+
+        tabsBar.classList.add('hidden');
+        spotlightView.classList.add('hidden');
+        gridView.classList.remove('hidden');
+        gridView.classList.add('grid');
+      }
+    }
+
+    document.querySelectorAll('.suite-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectSuite(btn.getAttribute('data-suite'));
+      });
+    });
+
+    // Initialize Explorer Views
+    renderSpotlight('desk');
+    renderAllGrid();
+
+    // 3. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden', !isHidden);
+      menuIconOpen.classList.toggle('hidden', isHidden);
+      menuIconClose.classList.toggle('hidden', !isHidden);
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+      });
+    });
+
+    // Exact Sticky Header Anchor Scrolling & Active Tab Highlighting
+    const navbarEl = document.getElementById('main-navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sectionIds = ['explorer', 'impact', 'flexibility', 'governance', 'contact'];
+
+    function scrollToSectionExact(targetId) {
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+      const headerHeight = navbarEl ? navbarEl.offsetHeight : 64;
+      const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: 'smooth'
+      });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const targetId = href.slice(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          scrollToSectionExact(targetId);
+          history.replaceState(null, '', href);
+        }
+      });
+    });
+
+    function updateActiveNavLink() {
+      const headerHeight = navbarEl ? navbarEl.offsetHeight : 64;
+      const scrollMarker = window.scrollY + headerHeight + 28;
+      let currentId = '';
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          if (scrollMarker >= top) {
+            currentId = id;
+          }
+        }
+      }
+
+      navLinks.forEach(link => {
+        const isActive = link.getAttribute('data-nav') === currentId;
+        if (isActive) {
+          link.classList.add('text-indigoBrand-700', 'underline', 'decoration-tealBrand-600', 'decoration-2', 'underline-offset-8');
+        } else {
+          link.classList.remove('text-indigoBrand-700', 'underline', 'decoration-tealBrand-600', 'decoration-2', 'underline-offset-8');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+    window.addEventListener('load', updateActiveNavLink);
+
+    // 4. One-Click Copy Email Address
+    function copySlatePingEmail() {
+      const email = 'partnership@slateping.com';
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      tempInput.setSelectionRange(0, 99999);
+
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(email);
+        }
+      }
+      document.body.removeChild(tempInput);
+
+      const copyIcon = document.getElementById('copy-icon');
+      const copiedIcon = document.getElementById('copied-icon');
+      const copyBtnLabel = document.getElementById('copy-btn-label');
+      const copyConfirmation = document.getElementById('copy-confirmation');
+
+      copyIcon.classList.add('hidden');
+      copiedIcon.classList.remove('hidden');
+      copyBtnLabel.textContent = 'Copied to Clipboard';
+      copyConfirmation.classList.remove('hidden');
+      copyConfirmation.classList.add('inline-flex');
+
+      setTimeout(() => {
+        copyIcon.classList.remove('hidden');
+        copiedIcon.classList.add('hidden');
+        copyBtnLabel.textContent = 'Copy Email Address';
+        copyConfirmation.classList.add('hidden');
+        copyConfirmation.classList.remove('inline-flex');
+      }, 3500);
+    }
+
+    // 5. Legal and Governance Modal
+    const legalModal = document.getElementById('legal-modal');
+    const legalModalTitle = document.getElementById('legal-modal-title');
+    const legalModalBody = document.getElementById('legal-modal-body');
+
+    function openLegalModal(type) {
+      if (type === 'privacy') {
+        legalModalTitle.textContent = 'Privacy Policy';
+        legalModalBody.innerHTML = `
+          <p>${brandMark()} collects contact details solely to respond to direct email inquiries, staffing requests, and consulting discussions.</p>
+          <p>We never sell, rent, or distribute client contact information to third parties.</p>
+        `;
+      } else {
+        legalModalTitle.textContent = 'Security Governance and Digital Agreements';
+        legalModalBody.innerHTML = `
+          <p><strong>Trusted Digital Signature Partners:</strong> All Mutual Non-Disclosure Agreements (NDAs), Master Service Agreements, and Statements of Work are executed electronically through trusted digital signature partners.</p>
+          <p><strong>Client-Aligned Access Controls:</strong> Our teams operate within each client's approved security controls, including encrypted VDI/VPN access, SSO, MFA, and role-based least-privilege permissions.</p>
+        `;
+      }
+      legalModal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeLegalModal() {
+      legalModal.classList.add('hidden');
+    }
+
+    legalModal.addEventListener('click', (e) => {
+      if (e.target === legalModal) closeLegalModal();
+    });
+  </script>
+</body>
+</html>
